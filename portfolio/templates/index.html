@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Hero Section -->
+    <section id="home" class="text-center py-5 bg-dark-card rounded-3 shadow-sm">
+        <img src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}{% static 'uploads/default.jpg' %}{% endif %}" class="rounded-circle mb-3 border border-3 border-primary" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+        <h1 class="fw-bold text-gradient">Welcome to My Portfolio</h1>
+        <p class="lead text-light">{{ profile.bio|default:"A passionate individual showcasing skills and projects." }}</p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="my-5">
+        <h2 class="text-center mb-5 fw-bold text-gradient">Skills</h2>
+        <div class="row">
+            {% for skill in skills %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 h-100 transition-scale bg-dark-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-gradient">{{ skill.name }}</h5>
+                        <div class="progress rounded-pill">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: {{ skill.proficiency }}%;" aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100">{{ skill.proficiency }}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-muted">No skills added yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="my-5">
+        <h2 class="text-center mb-5 fw-bold text-gradient">Projects</h2>
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 h-100 transition-scale bg-dark-card">
+                    <img src="{% if project.image %}{{ project.image.url }}{% else %}{% static 'uploads/default_project.jpg' %}{% endif %}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3 fw-bold text-gradient">{{ project.title }}</h5>
+                        <p class="card-text text-light">{{ project.description|truncatewords:20 }}</p>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" class="btn btn-primary rounded-pill" target="_blank">View Project</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-muted">No projects added yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="my-5 text-center py-5 bg-dark-card rounded-3 shadow-sm">
+        <h2 class="fw-bold text-gradient">Resume</h2>
+        {% if resume %}
+        <p class="lead text-light">Download my resume to learn more about my qualifications.</p>
+        <a href="{% url 'download_resume' resume.id %}" class="btn btn-success btn-lg rounded-pill">Download Resume</a>
+        {% else %}
+        <p class="text-muted">No resume uploaded yet.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

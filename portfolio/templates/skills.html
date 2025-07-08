@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-5 fw-bold text-gradient">My Skills</h2>
+    <div class="row">
+        {% for skill in skills %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 h-100 transition-scale bg-dark-card">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-gradient">{{ skill.name }}</h5>
+                    <div class="progress rounded-pill">
+                        <div class="progress-bar bg-gradient" role="progressbar" style="width: {{ skill.proficiency }}%;" aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100">{{ skill.proficiency }}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No skills added yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

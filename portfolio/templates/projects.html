@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-5 fw-bold text-gradient">My Projects</h2>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 h-100 transition-scale bg-dark-card">
+                <img src="{% if project.image %}{{ project.image.url }}{% else %}{% static 'uploads/default_project.jpg' %}{% endif %}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-gradient">{{ project.title }}</h5>
+                    <p class="card-text text-light">{{ project.description|truncatewords:20 }}</p>
+                    {% if project.link %}
+                    <a href="{{ project.link }}" class="btn btn-primary rounded-pill" target="_blank">View Project</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No projects added yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

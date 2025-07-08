@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Introduction Section -->
+    <div class="card shadow-lg p-4 rounded-3 bg-dark-card">
+        <h2 class="text-center mb-4 fw-bold text-gradient">Abdul Jabbar AKHTAR</h2>
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center">
+                <img src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}{% static 'uploads/default.jpg' %}{% endif %}" class="rounded-circle mb-3 border border-3 border-primary" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <p class="lead text-light">{{ profile.bio|default:"I am a passionate individual dedicated to creating innovative solutions and showcasing my skills through impactful projects." }}</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
